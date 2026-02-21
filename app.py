@@ -1,58 +1,53 @@
 import streamlit as st
-from datetime import datetime
-import urllib.parse
+import datetime
 
-# 1. APP CONFIG
-st.set_page_config(page_title="Spiritual Case Planner", layout="centered")
+# 1. APP CONFIGURATION
+st.set_page_config(page_title="Spiritual Portal", page_icon="✨", layout="centered")
+
 st.title("✨ Divine Consultation Portal")
 st.markdown("---")
 
-# 2. THE JATAGAM TOOL (Reliable Version)
+# 2. CHARITY QUOTA (Simulated for Zero-Cost)
+if 'charity_slots' not in st.session_state:
+    st.session_state.charity_slots = 5
+
+# 3. JATAGAM TOOL (Date range 1900-Today)
 st.header("🌌 Free South Indian Jatagam")
+with st.expander("Enter Birth Details", expanded=True):
+    name = st.text_input("Full Name")
+    
+    # Selection range logic
+    min_date = datetime.date(1900, 1, 1)
+    max_date = datetime.date.today()
+    default_date = datetime.date(1979, 1, 1)
 
-name = st.text_input("Full Name", key="name_input")
-col1, col2 = st.columns(2)
-with col1:
-    # Pre-set to 1979 as requested
-    dob = st.date_input("Date of Birth", value=datetime(1979, 1, 1), min_value=datetime(1900, 1, 1), key="dob_input")
-with col2:
-    tob = st.time_input("Time of Birth", key="tob_input")
-
-pob = st.text_input("Place of Birth (City/State)", key="pob_input")
-
-if st.button("Step 1: Save Details"):
-    st.success(f"Details for {name} saved!")
-    st.markdown("### Step 2: Generate Chart")
-    # This link opens the main calculator safely to avoid 404
-    st.link_button("👉 Open South Indian Chart Calculator", "https://www.astrosage.com/free/kundli.asp")
+    col1, col2 = st.columns(2)
+    with col1:
+        dob = st.date_input("Date of Birth", value=default_date, min_value=min_date, max_value=max_date)
+    with col2:
+        tob = st.time_input("Time of Birth")
+    
+    pob = st.text_input("Place of Birth")
+    
+    if st.button("Generate My Chart"):
+        if name and pob:
+            st.success(f"Namaste {name}!")
+            st.markdown(f"### [👉 Click here to view your Chart](https://www.astrosage.com/freechart/birth-chart.asp?name={name})")
+        else:
+            st.warning("Please enter your details first.")
 
 st.markdown("---")
 
-# 3. SERVICE BOOKING & WHATSAPP
-st.header("🔮 Book a Session")
-service = st.selectbox("Choose a Service", [
-    "Select a service...",
-    "Charity Reading (PAYW)",
-    "Tarot Reading (₹1,500)",
-    "Pranic Healing (₹500)",
-    "Akashic Reading (₹3,000)"
+# 4. SERVICES
+st.header("🔮 Services")
+service = st.selectbox("Choose a Service:", [
+    "Select...", 
+    "Charity Reading (PAYW)", 
+    "Tarot (₹1,500)", 
+    "Akashic (₹3,000 incl. Healing)"
 ])
 
-if service != "Select a service...":
-    # TO DO: Change the number below to your real WhatsApp number
-    phone_number = "919000000000" 
-    message = f"Hi! I want to book a {service}. My details: {name}, {dob}, {tob}, {pob}."
-    encoded_msg = urllib.parse.quote(message)
-    whatsapp_url = f"https://wa.me/{phone_number}?text={encoded_msg}"
-    
-    # TO DO: Change 'yourname@upi' to your actual UPI ID
-    st.info("🙏 To confirm, please pay via UPI: **yourname@upi**")
-    
-    col_a, col_b = st.columns(2)
-    with col_a:
-        if st.button("Confirm Booking"):
-            st.balloons()
-            st.write(f"Ref ID: DIVINE-{datetime.now().strftime('%M%S')}")
-    with col_b:
-        # This helps clients send you their details if they get stuck
-        st.link_button("💬 Send Details via WhatsApp", whatsapp_url)
+if st.button("Confirm & Generate Ref ID"):
+    ref_id = datetime.datetime.now().strftime('%Y%m%d%H%M')
+    st.info(f"Booking Confirmed! Ref: {ref_id}")
+    st.write("Please screenshot this and send it to your practitioner.")
