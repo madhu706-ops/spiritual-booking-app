@@ -18,7 +18,36 @@ with st.expander("Enter Birth Details to Generate Chart"):
     name = st.text_input("Full Name")
     col1, col2 = st.columns(2)
     with col1:
-        dob = st.date_input("Date of Birth")
+       import datetime  # Make sure this is at the very top of your file
+
+# 3. THE JATAGAM TOOL (Modified for 1979 birth year)
+st.header("🌌 Free South Indian Jatagam")
+with st.expander("Enter Birth Details to Generate Chart"):
+    name = st.text_input("Full Name")
+    
+    # We define the range here: 1900 to today
+    min_date = datetime.date(1900, 1, 1)
+    max_date = datetime.date.today()
+    # We set the default starting view to 1979-01-01
+    default_date = datetime.date(1979, 1, 1)
+
+    col1, col2 = st.columns(2)
+    with col1:
+        dob = st.date_input(
+            "Date of Birth", 
+            value=default_date, 
+            min_value=min_date, 
+            max_value=max_date
+        )
+    with col2:
+        tob = st.time_input("Time of Birth")
+    
+    pob = st.text_input("Place of Birth")
+    
+    if st.button("Generate Chart"):
+        st.success(f"Details captured for {name}!")
+        st.info("Directing you to the calculation engine...")
+        st.markdown(f"[Click here to see your South Indian Chart Grid](https://www.astrosage.com/freechart/birth-chart.asp?name={name})")
     with col2:
         tob = st.time_input("Time of Birth")
     pob = st.text_input("Place of Birth")
