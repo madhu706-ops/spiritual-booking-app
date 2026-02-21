@@ -7,27 +7,28 @@ st.set_page_config(page_title="Spiritual Case Planner", layout="centered")
 st.title("✨ Divine Consultation Portal")
 st.markdown("---")
 
-# 2. THE JATAGAM TOOL (All fields restored)
+# 2. THE JATAGAM TOOL (Reliable Version)
 st.header("🌌 Free South Indian Jatagam")
 
 name = st.text_input("Full Name", key="name_input")
 col1, col2 = st.columns(2)
 with col1:
+    # Pre-set to 1979 as requested
     dob = st.date_input("Date of Birth", value=datetime(1979, 1, 1), min_value=datetime(1900, 1, 1), key="dob_input")
 with col2:
     tob = st.time_input("Time of Birth", key="tob_input")
 
-# RESTORED FIELD: Place of Birth
 pob = st.text_input("Place of Birth (City/State)", key="pob_input")
 
 if st.button("Step 1: Save Details"):
     st.success(f"Details for {name} saved!")
-    st.markdown("### Step 2: Get Your Chart")
+    st.markdown("### Step 2: Generate Chart")
+    # This link opens the main calculator safely to avoid 404
     st.link_button("👉 Open South Indian Chart Calculator", "https://www.astrosage.com/free/kundli.asp")
 
 st.markdown("---")
 
-# 3. SERVICE BOOKING & WHATSAPP BRIDGE
+# 3. SERVICE BOOKING & WHATSAPP
 st.header("🔮 Book a Session")
 service = st.selectbox("Choose a Service", [
     "Select a service...",
@@ -38,10 +39,20 @@ service = st.selectbox("Choose a Service", [
 ])
 
 if service != "Select a service...":
-    # Replace the number below with your actual WhatsApp number
-    phone_number = "919000000000" # Use format: 91 followed by 10 digits
+    # TO DO: Change the number below to your real WhatsApp number
+    phone_number = "919000000000" 
     message = f"Hi! I want to book a {service}. My details: {name}, {dob}, {tob}, {pob}."
     encoded_msg = urllib.parse.quote(message)
     whatsapp_url = f"https://wa.me/{phone_number}?text={encoded_msg}"
     
+    # TO DO: Change 'yourname@upi' to your actual UPI ID
     st.info("🙏 To confirm, please pay via UPI: **yourname@upi**")
+    
+    col_a, col_b = st.columns(2)
+    with col_a:
+        if st.button("Confirm Booking"):
+            st.balloons()
+            st.write(f"Ref ID: DIVINE-{datetime.now().strftime('%M%S')}")
+    with col_b:
+        # This helps clients send you their details if they get stuck
+        st.link_button("💬 Send Details via WhatsApp", whatsapp_url)
