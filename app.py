@@ -10,13 +10,13 @@ st.markdown("---")
 if 'charity_slots' not in st.session_state:
     st.session_state.charity_slots = 5
 
-# 3. THE JATAGAM TOOL
+# 3. THE JATAGAM TOOL (FIXED LINK)
 st.header("🌌 Free South Indian Jatagam")
-with st.expander("Enter Birth Details to Generate Chart", expanded=False):
+with st.expander("Enter Birth Details to Generate Chart", expanded=True):
     name = st.text_input("Full Name", key="jatagam_name")
     col1, col2 = st.columns(2)
     with col1:
-        # FIXED DATE RANGE: Allows 1979
+        # Allows you to pick 1979 easily
         dob = st.date_input(
             "Date of Birth", 
             value=datetime(1979, 1, 1), 
@@ -30,7 +30,9 @@ with st.expander("Enter Birth Details to Generate Chart", expanded=False):
     
     if st.button("Generate Chart", key="btn_chart"):
         st.success(f"Details captured for {name}!")
-        st.markdown(f"[Click here for Chart](https://www.astrosage.com/freechart/birth-chart.asp?name={name})")
+        # This link is now simplified to prevent the 404 error
+        st.markdown("### [👉 CLICK HERE TO SEE YOUR CHART](https://www.astrosage.com/free/kundli.asp)")
+        st.info("Once you reach the page, just re-verify your time and place for the most accurate South Indian result.")
 
 st.markdown("---")
 
@@ -56,6 +58,7 @@ elif service == "Akashic Reading (₹2,500 + Mandatory Healing)":
 
 # 5. PAYMENT & CONFIRMATION
 if service != "Select a service...":
+    # IMPORTANT: Update 'yourname@upi' to your actual UPI ID
     st.info("🙏 To confirm, please pay via UPI: **yourname@upi**")
     if st.button("Confirm & Generate Sheet", key="btn_confirm"):
         st.balloons()
