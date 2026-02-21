@@ -7,27 +7,27 @@ st.set_page_config(page_title="Spiritual Case Planner", layout="centered")
 st.title("✨ Divine Consultation Portal")
 st.markdown("---")
 
-# 2. THE JATAGAM TOOL (Safe Gateway)
+# 2. THE JATAGAM TOOL (Reliable Version)
 st.header("🌌 Free South Indian Jatagam")
 st.write("Enter details below to save them to your session.")
 
 name = st.text_input("Full Name", key="name_input")
 col1, col2 = st.columns(2)
 with col1:
-    # Pre-set for 1979
+    # Pre-set for 1979 as requested
     dob = st.date_input("Date of Birth", value=datetime(1979, 1, 1), min_value=datetime(1900, 1, 1), key="dob_input")
 with col2:
     tob = st.time_input("Time of Birth", key="tob_input")
 
-# Place of Birth is here
+# Place of Birth restored
 pob = st.text_input("Place of Birth (City, State)", key="pob_input")
 
 if st.button("Step 1: Save Details"):
-    st.success(f"Details for {name} saved! Now open the calculator below.")
+    st.success(f"Details for {name} saved! Now use the secure link below.")
     st.markdown("### Step 2: Get Your Chart")
-    # This opens the main Kundli entry page which NEVER errors out
+    # This button opens the main calculator safely to avoid 404
     st.link_button("👉 Open South Indian Chart Calculator", "https://www.astrosage.com/free/kundli.asp")
-    st.info("Once the page opens, simply enter your saved details there to see your chart.")
+    st.info("Once the page opens, enter your saved details there to see your results.")
 
 st.markdown("---")
 
@@ -50,11 +50,11 @@ if service != "Select a service...":
     
     st.info("🙏 To confirm, please pay via UPI: **yourname@upi**")
     
-    col_left, col_right = st.columns(2)
-    with col_left:
+    col_a, col_b = st.columns(2)
+    with col_a:
         if st.button("Confirm Booking"):
             st.balloons()
-            st.write(f"Ref: DIVINE-{datetime.now().strftime('%M%S')}")
-    with col_right:
-        # This button allows them to send the POB and other info directly to you!
+            st.write(f"Ref ID: DIVINE-{datetime.now().strftime('%M%S')}")
+    with col_b:
+        # This allows clients to send the POB and info directly to you!
         st.link_button("💬 Send Details via WhatsApp", whatsapp_url)
