@@ -7,25 +7,27 @@ st.set_page_config(page_title="Spiritual Case Planner", layout="centered")
 st.title("✨ Divine Consultation Portal")
 st.markdown("---")
 
-# 2. THE JATAGAM TOOL (Place of Birth Restored)
+# 2. THE JATAGAM TOOL (Safe Gateway)
 st.header("🌌 Free South Indian Jatagam")
 st.write("Enter details below to save them to your session.")
 
 name = st.text_input("Full Name", key="name_input")
 col1, col2 = st.columns(2)
 with col1:
+    # Pre-set for 1979
     dob = st.date_input("Date of Birth", value=datetime(1979, 1, 1), min_value=datetime(1900, 1, 1), key="dob_input")
 with col2:
     tob = st.time_input("Time of Birth", key="tob_input")
 
-# POB is back
+# Place of Birth is here
 pob = st.text_input("Place of Birth (City, State)", key="pob_input")
 
 if st.button("Step 1: Save Details"):
     st.success(f"Details for {name} saved! Now open the calculator below.")
     st.markdown("### Step 2: Get Your Chart")
-    # This link opens the main calculator entry page which NEVER 404s
+    # This opens the main Kundli entry page which NEVER errors out
     st.link_button("👉 Open South Indian Chart Calculator", "https://www.astrosage.com/free/kundli.asp")
+    st.info("Once the page opens, simply enter your saved details there to see your chart.")
 
 st.markdown("---")
 
@@ -40,7 +42,7 @@ service = st.selectbox("Choose a Service", [
 ])
 
 if service != "Select a service...":
-    # TO DO: Change '919000000000' to your real WhatsApp number
+    # IMPORTANT: Change this to your real WhatsApp number starting with 91
     phone_number = "919000000000" 
     message = f"Hi! I want to book a {service}. My details: Name: {name}, DOB: {dob}, TOB: {tob}, POB: {pob}."
     encoded_msg = urllib.parse.quote(message)
@@ -54,5 +56,5 @@ if service != "Select a service...":
             st.balloons()
             st.write(f"Ref: DIVINE-{datetime.now().strftime('%M%S')}")
     with col_right:
-        # If the calculator is confusing, they can just message you!
+        # This button allows them to send the POB and other info directly to you!
         st.link_button("💬 Send Details via WhatsApp", whatsapp_url)
